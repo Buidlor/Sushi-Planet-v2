@@ -1,0 +1,29 @@
+[
+    {
+        "FirstName": "John",
+        "SurName": "Doe",
+        "Email": "johndoe@example.com",
+        "Subject": "All restaurants",
+        "Message": "I was wondering if your sushi restaurant has any vegetarian options on the menu?"
+    },
+    {
+        "FirstName": "Jane",
+        "SurName": "Coolio",
+        "Email": "janecoolio@example.com",
+        "Subject": "Sakura Sushi",
+        "Message": "I recently dined at your sushi restaurant and wanted to let you know that the service was excellent and the food was delicious! Keep up the good work."    },
+    {
+        "FirstName": "Bob",
+        "SurName": "Smith",
+        "Email": "bobsmith@example.com",
+        "Subject": "Mikado Sushi Bar",
+        "Message": "I would like to make a reservation for 2 people at your sushi restaurant for next Saturday at 7 PM."
+    },
+    {
+        "FirstName": "Mike",
+        "SurName": "Dubois",
+        "Email": "mikedubois@idfk.scu",
+        "Subject": "Wasabi Fusion",
+        "Message": "Do you have any specialty rolls that I should try on my next visit to your sushi restaurant?"
+    }
+]
