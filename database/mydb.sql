@@ -23,5 +23,5 @@ CREATE TABLE images (
 	ID int unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	ImageName varchar(255),
 	ImagePath varchar(255),
-	ImageType varchar(255),
+	ImageType varchar(255)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
