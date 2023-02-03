@@ -23,13 +23,5 @@ CREATE TABLE images (
 	ID int unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	ImageName varchar(255),
 	ImagePath varchar(255),
-	ImageType varchar(255),
+	ImageType varchar(255)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
-
-INSERT INTO contactform (FirstName, SurName, Email, Subject, Message)
-VALUES
-("John", "Doe", "johndoe@example.com", "All restaurants", "I was wondering if your sushi restaurant has any vegetarian options on the menu?"),
-("Jane", "Coolio", "janecoolio@example.com", "Sakura Sushi", "I recently dined at your sushi restaurant and wanted to let you know that the service was excellent and the food was delicious! Keep up the good work."),
-("Bob", "Smith", "bobsmith@example.com", "Mikado Sushi Bar", "I would like to make a reservation for 2 people at your sushi restaurant for next Saturday at 7 PM."),
-("Mike", "Dubois", "mikedubois@idfk.scu", "Wasabi Fusion", "Do you have any specialty rolls that I should try on my next visit to your sushi restaurant?"),
-("koekoe", "koekoe", "koekoe@idfk.scu", "Wasabi Fusion", "injected with mydb.sql script");

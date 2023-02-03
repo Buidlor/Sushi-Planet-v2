@@ -2,7 +2,22 @@
   session_start();
   include ('config.php');
 
-  
+  if (isset($_POST['submit'])) {
+		$FirstName = $_POST['FirstName'];
+    $SurName = $_POST['SurName'];
+		$Email = $_POST['Email'];
+		$Subject = $_POST['Subject'];
+		$Message = $_POST['Message'];
+	
+    $insert = $connection->prepare("INSERT INTO contactform (FirstName, SurName, Email, Subject, Message, Date) VALUES (:FirstName, :SurName, :Email, :Subject, :Message, NOW())");
+    $insert->bindParam(':FirstName', $FirstName);
+    $insert->bindParam(':SurName', $SurName);
+    $insert->bindParam(':Email', $Email);
+    $insert->bindParam(':Subject', $Subject);
+    $insert->bindParam(':Message', $Message);
+    $insert->execute();
+  }	
+				
 ?>
 
 <!DOCTYPE html>
@@ -45,16 +60,16 @@
             <a href="#welcome" class="nav-link">Welcome</a>
           </li>
           <li class="nav-item">
-            <a href="menu.html" class="nav-link">Menu</a>
+            <a href="#menu" class="nav-link">Menu</a>
           </li>
           <li class="nav-item">
-            <a href="pictures.html" class="nav-link">Pictures</a>
+            <a href="#pictures" class="nav-link">Pictures</a>
           </li>
           <li class="nav-item">
-            <a href="restaurants.html" class="nav-link">Restaurants</a>
+            <a href="#restaurants" class="nav-link">Restaurants</a>
           </li>
           <li class="nav-item">
-            <a href="contact.html" class="nav-link">Contact</a>
+            <a href="#contact" class="nav-link">Contact</a>
           </li>
         </ul>
       </div>
@@ -716,18 +731,18 @@
             <div class="d-flex ">
               <div class="mb-3 me-3">
                 <label for="inputName" class="form-label">Name</label>
-                <input type="text" id="inputName" class="form-control" aria-describedby="passwordHelpInline"
+                <input type="text" id="inputName" name="FirstName" class="form-control" aria-describedby="passwordHelpInline"
                   placeholder="John">
               </div>
               <div class="mb-3">
                 <label for="inputSurname" class="form-label">Surname</label>
-                <input type="text" id="inputSurname" class="form-control" aria-describedby="passwordHelpInline"
+                <input name="SurName" type="text" id="inputSurname" class="form-control" aria-describedby="passwordHelpInline"
                   placeholder="Smith">
               </div>
             </div>
             <div class="mb-3">
               <label for="inputEmail" class="col-form-label">Email</label>
-              <input type="Email" id="inputEmail" class="form-control" aria-describedby="passwordHelpInline"
+              <input name="Email" type="Email" id="inputEmail" class="form-control" aria-describedby="passwordHelpInline"
                 placeholder="john.smith@smthing.som">
             </div>
           </div>
@@ -735,24 +750,24 @@
           <!-- subject and message  -->
           <div class="container col-md">
             <label for="subject" class="form-label">Subject</label>
-            <select class="form-select mb-3" id="subject" aria-label="select option">
+            <select name="Subject" class="form-select mb-3" id="subject" aria-label="select option">
               <option selected>Select restaurant</option>
-              <option value="1">All restaurants</option>
-              <option value="2">Sakura Sushi</option>
-              <option value="3">Mikado Sushi Bar</option>
-              <option value="4">Wasabi Fusion</option>
-              <option value="5">Koi Sushi Lounge</option>
+              <option value="All restaurants">All restaurants</option>
+              <option value="Sakura Sushi">Sakura Sushi</option>
+              <option value="Mikado Sushi Bar">Mikado Sushi Bar</option>
+              <option value="Wasabi Fusion">Wasabi Fusion</option>
+              <option value="Koi Sushi Lounge">Koi Sushi Lounge</option>
             </select>
 
             <label for="message" class="form-label">Message</label>
-            <textarea class="form-control" id="message" class="form-control" aria-describedby="messageHelp"
+            <textarea name="Message" class="form-control" id="message" class="form-control" aria-describedby="messageHelp"
               placeholder="insert message here"></textarea>
           </div>
 
         </div>
         <div class="text-center mt-3">
 
-          <button type="submit" class="btn btn-dark btn-lg mt-2">Submit</button>
+          <button name="submit" type="submit" class="btn btn-dark btn-lg mt-2">Submit</button>
         </div>
 
       </form>
