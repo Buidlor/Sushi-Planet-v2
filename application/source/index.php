@@ -1,25 +1,11 @@
 <?php 
   session_start();
   include ('config.php');
+
+  echo '<pre>';
+  print_r($images);
+  echo '</pre>';
   
-  $string= '';
-
-  foreach ($drinks as $drink) {
-    $string .= <<<EOD
-    <li class="list-group-item">
-        <div class="d-flex justify-content-between align-items-center">
-        <span><strong>{$drink['Course']}:</strong> {$drink['CourseDescription']}</span> <span class="badge bg-primary">€{$drink[CoursePrice]}</span>
-        </div>
-    </li>
-    EOD;
-  }
-
- 
-  
-  echo "<pre>";
-  echo $string;
-  echo "</pre>";
-
   if (isset($_POST['submit'])) {
 		$FirstName = $_POST['FirstName'];
     $SurName = $_POST['SurName'];
@@ -50,19 +36,10 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- manual styling -->
   <link rel="stylesheet" href="style.css">
-
-  <!-- font awesome CDN for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-
-  <!-- Bootstrap CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   <link rel="icon" href="images/faviconSushi.png">
-
   <title>Sushi Planet</title>
 </head>
 
@@ -194,77 +171,15 @@
             data-bs-parent="#accordionFlushExample">
             <div class="accordion-body">
               <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Sapporo beer:</strong> A Japanese lager beer, popularly served with sushi and other
-                      Japanese dishes.</span> <span class="badge bg-primary">€7</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Asahi beer:</strong> Another popular Japanese lager beer.</span> <span
-                      class="badge bg-primary">€6</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Sake:</strong> A traditional Japanese rice wine that is often served warm or cold with
-                      sushi and other Japanese dishes.</span> <span class="badge bg-primary">€9</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Plum wine:</strong> A sweet, fruity wine made with plums, often served chilled as an
-                      accompaniment to sushi and other Japanese dishes.</span> <span class="badge bg-primary">€9</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Green tea:</strong> A traditional Japanese tea with a delicate, grassy flavor, often
-                      served hot or cold.</span> <span class="badge bg-primary">€5</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Matcha green tea:</strong> A finely ground, powdered green tea with a slightly bitter,
-                      earthy flavor, often served as a hot tea or in ice cream or lattes.</span> <span
-                      class="badge bg-primary">€6</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Iced tea:</strong> A refreshing, non-alcoholic option, often served sweetened or
-                      unsweetened.</span> <span class="badge bg-primary">€4</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Lemonade:</strong> A refreshing, non-alcoholic option, often served sweetened or
-                      unsweetened.</span> <span class="badge bg-primary">€4</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Soft drinks:</strong> A variety of non-alcoholic, carbonated beverages such as Coke,
-                      Sprite, and Ginger Ale.</span> <span class="badge bg-primary">€3</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Mineral water:</strong> A non-alcoholic option, often served sparkling or
-                      still.</span> <span class="badge bg-primary">€2</span>
-                  </div>
-                </li>
+                <?php echo $stringDrinks;?>
               </ul>
             </div>
           </div>
         </div>
 
-
         <!-- menu Appetizers -->
         <div class="accordion-item">
           <h2 class="accordion-header" id="flush-headingOne">
-
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
               data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
               <h5>Appetizers <span class="badge bg-info rounded-pill"> new ! </span> </h5>
@@ -274,60 +189,13 @@
             data-bs-parent="#accordionFlushExample">
             <div class="accordion-body">
               <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Edamame:</strong> Boiled and lightly salted soybeans served in the pod.</span> <span
-                      class="badge bg-primary">€5</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Gyoza:</strong> Pan-fried dumplings filled with meat or vegetables.</span> <span
-                      class="badge bg-primary">€6</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Age tofu:</strong> Deep-fried tofu served with a side of tempura sauce.</span> <span
-                      class="badge bg-primary">€5</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Sunomono:</strong> Thinly sliced raw fish or vegetables marinated in vinegar.</span>
-                    <span class="badge bg-primary">€7</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Takoyaki:</strong> Ball-shaped snack filled with diced octopus and topped with green
-                      onion and a special sauce.</span> <span class="badge bg-primary">€7</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Ebi fry:</strong> Fried prawns served with a side of tonkatsu sauce.</span> <span
-                      class="badge bg-primary">€9</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Okonomiyaki:</strong> Grilled savory pancake filled with vegetables and seafood or
-                      meat, topped with a special sauce and green onion.</span> <span
-                      class="badge bg-primary">€10</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Sashimi:</strong> Thinly sliced raw fish served with a side of soy sauce and
-                      wasabi.</span> <span class="badge bg-primary">€12</span>
-                  </div>
-                </li>
+                <?php echo $stringAppetizers;?>
               </ul>
-
             </div>
           </div>
         </div>
+
+        <!-- menu Starters -->
         <div class="accordion-item">
           <h2 class="accordion-header" id="flush-headingTwo">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -339,58 +207,13 @@
             data-bs-parent="#accordionFlushExample">
             <div class="accordion-body">
               <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Miso soup:</strong> A traditional Japanese soup made with miso paste, tofu, and green
-                      onions.</span> <span class="badge bg-primary">€3</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Tsukemono:</strong> A selection of pickled vegetables served as an appetizer.</span>
-                    <span class="badge bg-primary">€5</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Tako wasabi:</strong> Thinly sliced octopus mixed with wasabi and soy sauce.</span>
-                    <span class="badge bg-primary">€7</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Asari no sake gaki:</strong> Grilled asari clams seasoned with sake and salt.</span>
-                    <span class="badge bg-primary">€8</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Nasu dengaku:</strong> Grilled eggplant topped with a sweet miso glaze.</span> <span
-                      class="badge bg-primary">€6</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Yakiniku:</strong> Grilled beef skewers served with a side of ponzu sauce.</span>
-                    <span class="badge bg-primary">€9</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Ebi fry:</strong> Fried prawns served with a side of tonkatsu sauce.</span> <span
-                      class="badge bg-primary">€9</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Ika no karaage:</strong> Fried squid served with a side of lemon wedges.</span> <span
-                      class="badge bg-primary">€10</span>
-                  </div>
-                </li>
+                <?php echo $stringStarters;?>
               </ul>
             </div>
           </div>
         </div>
+
+        <!-- menu Main course -->
         <div class="accordion-item">
           <h2 class="accordion-header" id="flush-headingThree">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -402,58 +225,13 @@
             data-bs-parent="#accordionFlushExample">
             <div class="accordion-body">
               <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between ">
-                    <span><strong>California roll:</strong> A classic roll filled with imitation crab meat, avocado, and
-                      cucumber.</span> <span class="badge bg-primary">€10</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Tekka maki:</strong> Thinly sliced raw tuna rolled with rice and seaweed.</span> <span
-                      class="badge bg-primary">€12</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Ebi tempura roll:</strong> A roll filled with deep-fried prawns and vegetables.</span>
-                    <span class="badge bg-primary">€14</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Spicy tuna roll:</strong> A roll filled with spicy tuna and vegetables.</span> <span
-                      class="badge bg-primary">€12</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Unagi roll:</strong> A roll filled with grilled eel and cucumber.</span> <span
-                      class="badge bg-primary">€15</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Philadelphia roll:</strong> A roll filled with cream cheese, smoked salmon, and
-                      avocado.</span> <span class="badge bg-primary">€12</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Chirashi:</strong> A bowl of sushi rice topped with a variety of sliced raw fish and
-                      vegetables.</span> <span class="badge bg-primary">€20</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Sashimi platter:</strong> A platter of thinly sliced raw fish served with a side of
-                      soy sauce and wasabi.</span> <span class="badge bg-primary">€25</span>
-                  </div>
-                </li>
+                <?php echo $stringMains;?>
               </ul>
             </div>
           </div>
         </div>
+
+        <!-- menu Desserts -->
         <div class="accordion-item">
           <h2 class="accordion-header" id="flush-headingThree">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -465,54 +243,7 @@
             data-bs-parent="#accordionFlushExample">
             <div class="accordion-body">
               <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Mochi ice cream:</strong> A ball of ice cream wrapped in a layer of soft, chewy
-                      mochi.</span> <span class="badge bg-primary">€5</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Green tea ice cream:</strong> A classic Japanese ice cream flavor made with matcha
-                      green tea.</span> <span class="badge bg-primary">€5</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Black sesame ice cream:</strong> A creamy, nutty ice cream made with black sesame
-                      seeds.</span> <span class="badge bg-primary">€5</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Matcha cheesecake:</strong> A creamy cheesecake flavored with matcha green tea.</span>
-                    <span class="badge bg-primary">€7</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Mango pudding:</strong> A creamy, smooth pudding made with mango puree.</span> <span
-                      class="badge bg-primary">€6</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Anmitsu:</strong> A traditional Japanese dessert made with agar agar jelly, red bean
-                      paste, and fruit.</span> <span class="badge bg-primary">€8</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Matcha parfait:</strong> A layered dessert featuring matcha green tea ice cream,
-                      mochi, and fruit.</span> <span class="badge bg-primary">€9</span>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span><strong>Yuzu sorbet:</strong> A refreshing sorbet made with yuzu citrus fruit.</span> <span
-                      class="badge bg-primary">€6</span>
-                  </div>
-                </li>
+                <?php echo $stringDesserts;?>
               </ul>
             </div>
           </div>
