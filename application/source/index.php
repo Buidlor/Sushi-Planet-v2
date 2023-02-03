@@ -1,6 +1,24 @@
 <?php 
   session_start();
   include ('config.php');
+  
+  $string= '';
+
+  foreach ($drinks as $drink) {
+    $string .= <<<EOD
+    <li class="list-group-item">
+        <div class="d-flex justify-content-between align-items-center">
+        <span><strong>{$drink['Course']}:</strong> {$drink['CourseDescription']}</span> <span class="badge bg-primary">€{$drink[CoursePrice]}</span>
+        </div>
+    </li>
+    EOD;
+  }
+
+ 
+  
+  echo "<pre>";
+  echo $string;
+  echo "</pre>";
 
   if (isset($_POST['submit'])) {
 		$FirstName = $_POST['FirstName'];
@@ -8,6 +26,7 @@
 		$Email = $_POST['Email'];
 		$Subject = $_POST['Subject'];
 		$Message = $_POST['Message'];
+
 	
     $insert = $connection->prepare("INSERT INTO contactform (FirstName, SurName, Email, Subject, Message, Date) VALUES (:FirstName, :SurName, :Email, :Subject, :Message, NOW())");
     $insert->bindParam(':FirstName', $FirstName);
@@ -15,7 +34,12 @@
     $insert->bindParam(':Email', $Email);
     $insert->bindParam(':Subject', $Subject);
     $insert->bindParam(':Message', $Message);
-    $insert->execute();
+    try {
+      $insert->execute();
+    } catch (PDOException $e) {
+      echo $e->getMessage();
+    }
+    
   }	
 				
 ?>
@@ -724,7 +748,7 @@
     <div class="container text-light py-5">
       <h2 class="text-center mb-3">Contact</h2>
 
-      <form>
+      <form method="post">
         <div class="row">
           <!-- name and Email -->
           <div class="container col-md">
