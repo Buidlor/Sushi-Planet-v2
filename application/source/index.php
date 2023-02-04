@@ -2,9 +2,7 @@
   session_start();
   include ('config.php');
 
-  echo '<pre>';
-  print_r($images);
-  echo '</pre>';
+  
   
   if (isset($_POST['submit'])) {
 		$FirstName = $_POST['FirstName'];
@@ -252,37 +250,30 @@
     </div>
   </section>
 
-
   <!-- picture galery -->
   <section class="bg-dark pb-5" id="pictures">
     <div class="container py-4">
       <h2 class="text-light text-center">Pictures galery</h2>
     </div>
-
+    
     <div id="gals" class="carousel slide mx-3" data-bs-ride="false">
-
+      
+      
       <nav aria-label="..." class="d-flex justify-content-center pb-3">
         <ul class="pagination pagination-sm">
-          <li class="page-item" aria-current="page">
-            <button class="page-link" type="button" data-bs-target="#gals" data-bs-slide-to="0"
-              class="active">1</button>
-          </li>
-          <li class="page-item">
-            <button class="page-link" type="button" data-bs-target="#gals" data-bs-slide-to="1">2</button>
-          </li>
-          <li class="page-item">
-            <button class="page-link" type="button" data-bs-target="#gals" data-bs-slide-to="2">3</button>
-          </li>
+          <?php echo $imagePages; ?>
         </ul>
       </nav>
-
+      
+      
 
       <div class="container carousel-inner">
-
+        <?php echo $innerCarousel; ?>
+        
         <div class="carousel-item active">
           <div class="row g-5 pb-5 ">
             <div class="col-sm-6 col-md-3">
-              <img src="images/chef2cooking.jpg" alt="image of chef" class="img-fluid">
+              <img src="<?php echo $images[1]['ImagePath'] ?>" alt="image of chef" class="img-fluid">
             </div>
             <div class="col-sm-6 col-md-3">
               <img src="images/restaurant2.png" alt="image of chef" class="img-fluid">
@@ -295,49 +286,18 @@
             </div>
           </div>
         </div>
-
-        <div class="carousel-item">
-          <div class="row g-5 pb-5 ">
-            <div class="col-sm-6 col-md-3">
-              <img src="images/chef3.png" alt="image of chef" class="img-fluid">
-            </div>
-            <div class="col-sm-6 col-md-3">
-              <img src="images/restaurant3.png" alt="image of chef" class="img-fluid">
-            </div>
-            <div class="col-sm-6 col-md-3">
-              <img src="images/sushi2.png" alt="image of chef" class="img-fluid">
-            </div>
-            <div class="col-sm-6 col-md-3">
-              <img src="images//restaurant4.png" alt="image of chef" class="img-fluid">
-            </div>
-          </div>
-        </div>
-
-        <div class="carousel-item">
-          <div class="row g-5 pb-5 ">
-            <div class="col-sm-6 col-md-3">
-              <img src="images/sushi3.png" alt="image of chef" class="img-fluid">
-            </div>
-            <div class="col-sm-6 col-md-3">
-              <img src="images/sushi4.png" alt="image of chef" class="img-fluid">
-            </div>
-            <div class="col-sm-6 col-md-3">
-              <img src="images/restaurant2.png" alt="image of chef" class="img-fluid">
-            </div>
-            <div class="col-sm-6 col-md-3">
-              <img src="images/sushi2.png" alt="image of chef" class="img-fluid">
-            </div>
-          </div>
-        </div>
+        
+        
       </div>
     </div>
   </section>
-
+  
   <!-- franchise Restaurants -->
   <section class="py-5" id="restaurants">
 
     <div class="container">
       <div class="row g-4">
+
         <div class="col-md">
           <h2 class="text-center mb-4">Restaurant Info</h2>
           <nav>
@@ -352,6 +312,7 @@
                 type="button" role="tab" aria-controls="nav-disabled" aria-selected="false">Koi Sushi Lounge</button>
             </div>
           </nav>
+          
           <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"
               tabindex="0">
