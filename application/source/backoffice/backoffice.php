@@ -109,10 +109,20 @@
               <th class = "fs-5 pe-5">Subject</th>
               <th class = "fs-5 pe-5">Message</th>
               <th class = "fs-5 pe-5">Date</th>
-              <th class = "fs-5 pe-5">Delete</th>
+              <th class = "fs-5 pe-5">Action</th>
             </tr>
           </thead>
           <tbody>
+            <tr>
+              <td class="align-middle"><?php echo count($contactForm)+1; ?></td>
+              <td class="align-middle"><input type="text"></td>
+              <td class="align-middle"><input type="text"></td>
+              <td class="align-middle"><input type="text"></td>
+              <td class="align-middle"><input type="text"></td>
+              <td class="align-middle"><textarea type="text"></textarea></td>
+              <td class="align-middle"><?php echo date('d-m-y h:i:s'); ?></td>
+              <td class="align-middle"><button type="submit" class="btn btn-success rounded-circle">+</button></td>
+            </tr>
             <?php echo $stringContact; ?>
           </tbody>
         </table>      
@@ -129,11 +139,19 @@
               <th class = "fs-5 pe-5">Course</th>
               <th class = "fs-5 pe-5">CourseDescription</th>
               <th class = "fs-5 pe-5">CoursePrice</th>
-              <th class = "fs-5 pe-5">Delete</th>
+              <th class = "fs-5 pe-5">Action</th>
             </tr>
           </thead>
           <tbody>
-            <?php echo $stringmenu; ?>
+            <tr>
+                <td class="align-middle"><?php echo count($fullMenu)+1; ?></td>
+                <td class="align-middle"><input class="" type="text"></td>
+                <td class="align-middle"><input class="" type="text"></td>
+                <td class="align-middle"><input class="w-100" type="text"></td>
+                <td class="align-middle"><input class="w-25" type="text"></td>
+                <td class="align-middle"><button type="submit" class="btn btn-success rounded-circle">+</button></td>
+              </tr>
+              <?php echo $stringmenu; ?>
           </tbody>
         </table>      
       </div>
@@ -147,11 +165,18 @@
               <th class = "fs-5 pe-5">#</th>
               <th class = "fs-5 pe-5">ImageName</th>
               <th class = "fs-5 pe-5">Image</th>
-              <th class = "fs-5 pe-5">ImageType</th>
-              <th class = "fs-5 pe-5">Delete</th>
+              <th class = "fs-5 pe-5">Description</th>
+              <th class = "fs-5 pe-5">Action</th>
             </tr>
           </thead>
           <tbody>
+            <tr>
+              <td class="align-middle"><?php echo count($images)+1; ?></td>
+              <td class="align-middle"><input class="" type="text"></td>
+              <td class="align-middle"><input class="" type="file"></td>
+              <td class="align-middle"><input class="" type="text"></td>
+              <td class="align-middle"><button type="submit" class="btn btn-success rounded-circle">+</button></td>
+            </tr>
             <?php echo $stringImage; ?>
           </tbody>
         </table>      
