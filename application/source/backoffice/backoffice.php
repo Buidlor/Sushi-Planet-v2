@@ -2,7 +2,9 @@
   session_start();
   include '../config.php';
 
+  // Creates the tablerows for the menu and insert it in a string
   $stringmenu =""; 
+  $index = 0;
   foreach ($fullMenu as $men) {
     $stringmenu .= 
     <<<EOD
@@ -11,12 +13,37 @@
       <td class="align-middle">{$men['MenuType']}</td>
       <td class="align-middle">{$men['Course']}</td>
       <td class="align-middle">{$men['CourseDescription']}</td>
-      <td class="align-middle">{$men['CoursePrice']}</td>
-      <td class="align-middle"><button class="btn btn-danger rounded-circle">-</button></td>
+      <td class="align-middle">{$men['CoursePrice']}€</td>
+      <td class="align-middle"><button type="submit" name="removeMenu[{$index}]" class="btn btn-danger rounded-circle"><i class="fa-solid fa-minus"></i></button></td>
     </tr>
   EOD;
+  $index++;
   }
 
+  // Remove a menu item from the database
+  $index = 0;
+  if (isset($_POST['removeMenu'])) {
+    // Get the index of the menu item to remove
+    $index = key($_POST['removeMenu']);
+ 
+    $sql = "DELETE FROM menu WHERE ID = :id";
+    $stmt = $connection->prepare($sql);
+    $stmt->execute(['id' => $fullMenu[$index]['ID']]);
+
+    // Remove the menu item from the $fullMenu array
+    unset($fullMenu[$index]);
+  
+    // Re-index the $fullMenu array
+    $fullMenu = array_values($fullMenu);
+    $index = 0;
+
+    // Redirect to prevent resubmission
+    header("Location: ".$_SERVER['REQUEST_URI']);
+    exit();
+  }
+
+  // Creates the tablerows for the contactform and insert it in a string
+  $index = 0;
   $stringContact ="";
   foreach ($contactForm as $contact) {
     $stringContact .= 
@@ -29,11 +56,35 @@
       <td class="align-middle">{$contact['Subject']}</td>
       <td class="align-middle">{$contact['Message']}</td>
       <td class="align-middle">{$contact['Date']}</td>
-      <td class="align-middle"><button class="btn btn-danger rounded-circle">-</button></td>
+      <td class="align-middle"><button type="submit" name="removeContact[{$index}]" class="btn btn-danger rounded-circle"><i class="fa-solid fa-minus"></i></button></td>
     </tr>
   EOD;
+  $index++;
   }
 
+  //removes contact from database
+  if (isset($_POST['removeContact'])) {
+    // Get the index of the contact item to remove
+    $index = key($_POST['removeContact']);
+    
+    $sql = "DELETE FROM contactform WHERE ID = :id";
+    $stmt = $connection->prepare($sql);
+    $stmt->execute(['id' => $contactForm[$index]['ID']]);
+
+    // Remove the contact item from the $contactForm array
+    unset($contactForm[$index]);
+  
+    // Re-index the $contactForm array
+    $contactForm = array_values($contactForm);
+    $index = 0;
+
+    // Redirect to prevent resubmission
+    header("Location: ".$_SERVER['REQUEST_URI']);
+    exit();
+  }
+
+  // Creates the tablerows for the images and insert it in a string
+  $index = 0;
   $stringImage = "";
   foreach($images as $image){
     $stringImage .= 
@@ -43,10 +94,112 @@
       <td class="align-middle">{$image['ImageName']}</td>
       <td class="align-middle"><img src="../{$image['ImagePath']}" class="img-thumbnail w-25"></td>
       <td class="align-middle">{$image['ImageType']}</td>
-      <td class="align-middle"><button class="btn btn-danger rounded-circle">-</button></td>
+      <td class="align-middle"><button type="submit" name="removeImage[{$index}]" class="btn btn-danger rounded-circle"><i class="fa-solid fa-minus"></i></button></td>
     </tr>
   EOD;
+  $index++;
   }
+
+  //removes image from database
+  $index=0;
+  if (isset($_POST['removeImage'])) {
+    // Get the index of the image item to remove
+    $index = key($_POST['removeImage']);
+    
+    $sql = "DELETE FROM images WHERE ID = :id";
+    $stmt = $connection->prepare($sql);
+    $stmt->execute(['id' => $images[$index]['ID']]);
+
+    // Remove the image item from the $images array
+    unset($images[$index]);
+  
+    // Re-index the $images array
+    $images = array_values($images);
+    $index = 0;
+
+    // Redirect to prevent resubmission
+    header("Location: ".$_SERVER['REQUEST_URI']);
+    exit();
+  }
+
+  //adds contact to database
+  if(isset($_POST['addContact']))
+  {
+    $sql = "INSERT INTO contactform (FirstName, SurName, Email, Subject, Message, Date) VALUES (:FirstName, :SurName, :Email, :Subject, :Message, NOW())";
+    $stmt = $connection->prepare($sql);
+    $stmt->execute(['FirstName' => $_POST['FirstName'], 'SurName' => $_POST['SurName'], 
+    'Email' => $_POST['Email'], 'Subject' => $_POST['Subject'], 'Message' => $_POST['Message']]);
+       // Redirect to prevent resubmission
+    header("Location: ".$_SERVER['REQUEST_URI']);
+    exit();
+  }
+
+  //adds menu item to database
+  if(isset($_POST['addMenu']))
+  {
+    $sql = "INSERT INTO menu (MenuType, Course, CourseDescription, CoursePrice) VALUES (:MenuType, :Course, :CourseDescription, :CoursePrice)";
+    $stmt = $connection->prepare($sql);
+    $stmt->execute(['MenuType' => $_POST['MenuType'], 'Course' => $_POST['Course'], 
+    'CourseDescription' => $_POST['CourseDescription'], 'CoursePrice' => $_POST['CoursePrice']]);
+       // Redirect to prevent resubmission
+    header("Location: ".$_SERVER['REQUEST_URI']);
+    exit();
+  }
+
+  //adds image to database
+  if(isset($_POST['addImage']))
+  {
+
+    if(isset($_FILES['ImagePath'])){
+    
+      
+      $errors= array();
+      $file_name = $_FILES['ImagePath']['name'];
+      $file_size =$_FILES['ImagePath']['size'];
+      $file_tmp =$_FILES['ImagePath']['tmp_name'];
+      $file_type=$_FILES['ImagePath']['type'];
+      $file_ext=strtolower(end(explode('.', $file_name)));
+      $sql = "INSERT INTO images (ImageName, ImagePath, ImageType) VALUES (:ImageName, :ImagePath, :ImageType)";
+      $stmt = $connection->prepare($sql);
+      $stmt->execute(['ImageName' => $_POST['ImageName'], 'ImagePath' => "images/" . $file_name, 
+      'ImageType' => $_POST['ImageType']]);
+
+      $expensions= array("jpeg","jpg","png");
+      echo "<br>filename: " .$file_name;
+      echo "<br>file size: " . $file_size;
+      echo "<br>file_tmp: "  .$file_tmp; 
+      echo "<br>file_type: " .$file_type;
+      echo "<br>file_ext: " .$file_ext;
+      if(in_array($file_ext,$expensions)=== false){
+         $errors[]="<br><br>extension not allowed, please choose a JPEG or PNG file.";
+      }
+
+      if($file_size > 2097152){
+         $errors[]='<br><br>File size must be excately 2 MB';
+      }
+
+      if(empty($errors)==true){
+         move_uploaded_file($file_tmp,"../images/".$file_name);
+         echo "<br><br>Success";
+      }else{
+          print_r($errors);
+      }
+    }else{
+      echo "<br><br>no file";
+    }
+
+    // Redirect to prevent resubmission
+    header("Location: ".$_SERVER['REQUEST_URI']);
+    exit();
+  }
+
+
+
+  // if (isset($_POST['logout'])) {
+  //   session_destroy();
+  //   header("Location: loginform.php");
+  //   exit();
+  // }
 
 ?>
 
@@ -58,6 +211,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link rel="icon" href="../images/faviconSushi.png">  
     <title>Backoffice-Sushi-Planet</title>
 </head>
@@ -69,13 +223,13 @@
       <a href="#welcome" class="navbar-brand">
         <img src="../images/logosushiplanet2white.png" width="200" alt="logo image" class="d-inline-block align-middle">
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
-        <span class="navbar-toggler-icon text-white"></span>
-      </button>
+    
       <div class="collapse navbar-collapse" id="navmenu">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <button class="rounded"><a href="#" class="nav-link text-dark">Log Out</a></button>
+            <form method="post">
+              <button type="submit" name="logout" class="rounded nav-link text-dark mx-2">Log Out</button>
+            </form>
           </li>
         </ul>
       </div>
@@ -113,17 +267,20 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="align-middle"><?php echo count($contactForm)+1; ?></td>
-              <td class="align-middle"><input type="text"></td>
-              <td class="align-middle"><input type="text"></td>
-              <td class="align-middle"><input type="text"></td>
-              <td class="align-middle"><input type="text"></td>
-              <td class="align-middle"><textarea type="text"></textarea></td>
-              <td class="align-middle"><?php echo date('d-m-y h:i:s'); ?></td>
-              <td class="align-middle"><button type="submit" class="btn btn-success rounded-circle">+</button></td>
-            </tr>
-            <?php echo $stringContact; ?>
+ 
+            <form method="post">
+              <tr>
+                <td class="align-middle"><output class="form-control">ID</output></td>
+                <td class="align-middle"><input name="FirstName" class="form-control" type="text"></td>
+                <td class="align-middle"><input name="SurName" class="form-control" type="text"></td>
+                <td class="align-middle"><input name="Email" class="form-control" type="email" ></td>
+                <td class="align-middle"><input name="Subject" class="form-control" type="text"></td>
+                <td class="align-middle"><textarea name="Message" class="form-control" type="text"></textarea></td>
+                <td class="align-middle"><output name="Date" class=""><?php echo date('d-m-y h:i:s'); ?></output></td>
+                <td class="align-middle"><button type="submit" name="addContact" class="btn btn-success rounded-circle"><i class="fa-solid fa-plus"></i></button></td>
+              </tr>
+              <?php echo $stringContact; ?>
+            </form>
           </tbody>
         </table>      
       </div>
@@ -143,15 +300,17 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-                <td class="align-middle"><?php echo count($fullMenu)+1; ?></td>
-                <td class="align-middle"><input class="" type="text"></td>
-                <td class="align-middle"><input class="" type="text"></td>
-                <td class="align-middle"><input class="w-100" type="text"></td>
-                <td class="align-middle"><input class="w-25" type="text"></td>
-                <td class="align-middle"><button type="submit" class="btn btn-success rounded-circle">+</button></td>
-              </tr>
-              <?php echo $stringmenu; ?>
+            <form method="post">
+              <tr>
+                  <td class="align-middle"><output class="form-control">ID</td>
+                  <td class="align-middle"><input name="MenuType" class="form-control" type="text"></td>
+                  <td class="align-middle"><input name="Course" class="form-control" type="text"></td>
+                  <td class="align-middle"><input name="CourseDescription" class="form-control w-100" type="text"></td>
+                  <td class="align-middle"><input name="CoursePrice" class="form-control w-50" type="number" placeholder="€"></td>
+                  <td class="align-middle"><button type="submit" name="addMenu" class="btn btn-success rounded-circle"><i class="fa-solid fa-plus"></i></button></td>
+                </tr>
+                <?php echo $stringmenu; ?>
+            </form>
           </tbody>
         </table>      
       </div>
@@ -170,14 +329,16 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="align-middle"><?php echo count($images)+1; ?></td>
-              <td class="align-middle"><input class="" type="text"></td>
-              <td class="align-middle"><input class="" type="file"></td>
-              <td class="align-middle"><input class="" type="text"></td>
-              <td class="align-middle"><button type="submit" class="btn btn-success rounded-circle">+</button></td>
-            </tr>
-            <?php echo $stringImage; ?>
+            <form method="post" enctype="multipart/form-data">
+              <tr>
+                <td class="align-middle"><output class="form-control">ID</output></td>
+                <td class="align-middle"><input name="ImageName" class="form-control" type="text"></td>
+                <td class="align-middle"><input name="ImagePath" class="form-control w-75" type="file"></td>
+                <td class="align-middle"><input name="ImageType" class="form-control" type="text"></td>
+                <td class="align-middle"><button type="submit" name="addImage" class="btn btn-success rounded-circle"><i class="fa-solid fa-plus"></i></button></td>
+              </tr>
+              <?php echo $stringImage; ?>
+            </form>
           </tbody>
         </table>      
       </div>
