@@ -22,7 +22,7 @@
       <td class="align-middle">{$men['Course']}</td>
       <td class="align-middle">{$men['CourseDescription']}</td>
       <td class="align-middle">{$men['CoursePrice']}€</td>
-      <td class="align-middle"><button type="submit" name="removeMenu[{$index}]" class="btn btn-danger rounded-circle"><i class="fa-solid fa-minus"></i></button></td>
+      <td class="align-middle"><button type="submit" name="removeMenu[{$index}]" class="btn btn-danger btn-sm rounded-circle"><i class="fa-solid fa-minus"></i></button></td>
     </tr>
   EOD;
   $index++;
@@ -67,7 +67,7 @@
       <td class="align-middle">{$contact['Subject']}</td>
       <td class="align-middle">{$contact['Message']}</td>
       <td class="align-middle">{$contact['Date']}</td>
-      <td class="align-middle"><button type="submit" name="removeContact[{$index}]" class="btn btn-danger rounded-circle"><i class="fa-solid fa-minus"></i></button></td>
+      <td class="align-middle"><button type="submit" name="removeContact[{$index}]" class="btn btn-danger btn-sm rounded-circle"><i class="fa-solid fa-minus"></i></button></td>
     </tr>
   EOD;
   $index++;
@@ -107,7 +107,7 @@
       <td class="align-middle">{$image['ImageName']}</td>
       <td class="align-middle"><img src="../{$image['ImagePath']}" class="img-thumbnail w-25"></td>
       <td class="align-middle">{$image['ImageType']}</td>
-      <td class="align-middle"><button type="submit" name="removeImage[{$index}]" class="btn btn-danger rounded-circle"><i class="fa-solid fa-minus"></i></button></td>
+      <td class="align-middle"><button type="submit" name="removeImage[{$index}]" class="btn btn-danger btn-sm rounded-circle"><i class="fa-solid fa-minus"></i></button></td>
     </tr>
   EOD;
   $index++;
@@ -234,7 +234,7 @@
 </head>
 <body>
     <!-- navbar -->
-  <nav class="navbar navbar-expand-lg bg-black navbar-dark py-3 fixed-top">
+  <nav class="navbar navbar-expand-lg bg-black navbar-dark py-3 fixed-top shadow-lg">
     <div class="container">
       <ul class="d-flex justify-center align-items-center navbar-nav ms-auto">
         <li class="nav-item">
@@ -262,7 +262,7 @@
 
   <section class="container d-flex flex-column align-items-center justify-center my-5" id="welcome">
 
-    <nav class="my-2">
+    <nav class="mt-2  rounded-2 w-100">
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
         <button class="nav-link active " id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
         type="button" role="tab" aria-controls="nav-home" aria-selected="true"><h4>Contact Form</h4></button>
@@ -273,8 +273,8 @@
       </div>
     </nav>
     
-    <div class="tab-content" id="nav-tabContent">
-        <!-- show active -->
+    <div class="tab-content shadow border-start border-end border-bottom rounded-4" id="nav-tabContent">
+        
       <div class="tab-pane fade <?php echo (isset($_SESSION['active_tab']) && $_SESSION['active_tab'] == 'nav-home') ? 'show active' : ''; ?>" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"
         tabindex="0">
         <table class = "table table-striped">
@@ -293,15 +293,15 @@
           <tbody>
  
             <form method="post">
-              <tr>
-                <td class="align-middle"><output class="form-control">ID</output></td>
-                <td class="align-middle"><input name="FirstName" class="form-control" type="text"></td>
-                <td class="align-middle"><input name="SurName" class="form-control" type="text"></td>
-                <td class="align-middle"><input name="Email" class="form-control" type="email" ></td>
-                <td class="align-middle"><input name="Subject" class="form-control" type="text"></td>
-                <td class="align-middle"><textarea name="Message" class="form-control" type="text"></textarea></td>
+              <tr class="table-warning">
+                <td class="align-middle"><output class="form-control shadow">ID</output></td>
+                <td class="align-middle"><input name="FirstName" class="form-control shadow" type="text"></td>
+                <td class="align-middle"><input name="SurName" class="form-control shadow" type="text"></td>
+                <td class="align-middle"><input name="Email" class="form-control shadow" type="email" ></td>
+                <td class="align-middle"><input name="Subject" class="form-control shadow" type="text"></td>
+                <td class="align-middle"><textarea name="Message" class="form-control shadow" type="text"></textarea></td>
                 <td class="align-middle"><output name="Date" class=""><?php echo date('d-m-y h:i:s'); ?></output></td>
-                <td class="align-middle"><button type="submit" name="addContact" class="btn btn-success rounded-circle"><i class="fa-solid fa-plus"></i></button></td>
+                <td class="align-middle"><button type="submit" name="addContact" class=" shadow btn btn-success btn-sm rounded-circle"><i class="fa-solid fa-plus"></i></button></td>
               </tr>
               <?php echo $stringContact; ?>
             </form>
@@ -314,7 +314,7 @@
         tabindex="0">
         <table class = "table table-striped">
           <thead>
-            <tr >
+            <tr class="">
               <th class = "fs-5 pe-5">#</th>
               <th class = "fs-5 pe-5">MenuType</th>
               <th class = "fs-5 pe-5">Course</th>
@@ -325,13 +325,13 @@
           </thead>
           <tbody>
             <form method="post">
-              <tr>
-                  <td class="align-middle"><output class="form-control">ID</td>
-                  <td class="align-middle"><input name="MenuType" class="form-control" type="text"></td>
-                  <td class="align-middle"><input name="Course" class="form-control" type="text"></td>
-                  <td class="align-middle"><input name="CourseDescription" class="form-control w-100" type="text"></td>
-                  <td class="align-middle"><input name="CoursePrice" class="form-control w-50" type="number" placeholder="€"></td>
-                  <td class="align-middle"><button type="submit" name="addMenu" class="btn btn-success rounded-circle"><i class="fa-solid fa-plus"></i></button></td>
+              <tr class="table-warning">
+                  <td class="align-middle"><output class="form-control shadow">ID</td>
+                  <td class="align-middle"><input name="MenuType" class="form-control shadow" type="text"></td>
+                  <td class="align-middle"><input name="Course" class="form-control shadow" type="text"></td>
+                  <td class="align-middle"><input name="CourseDescription" class=" shadow form-control w-100" type="text"></td>
+                  <td class="align-middle"><input name="CoursePrice" class="form-control w-50 shadow" type="number" placeholder="€"></td>
+                  <td class="align-middle"><button type="submit" name="addMenu" class="btn shadow btn-success btn-sm rounded-circle"><i class="fa-solid fa-plus"></i></button></td>
                 </tr>
                 <?php echo $stringmenu; ?>
             </form>
@@ -354,12 +354,12 @@
           </thead>
           <tbody>
             <form method="post" enctype="multipart/form-data">
-              <tr>
+              <tr class="table-warning">
                 <td class="align-middle"><output class="form-control">ID</output></td>
                 <td class="align-middle"><input name="ImageName" class="form-control" type="text"></td>
                 <td class="align-middle"><input name="ImagePath" class="form-control w-75" type="file"></td>
                 <td class="align-middle"><input name="ImageType" class="form-control" type="text"></td>
-                <td class="align-middle"><button type="submit" name="addImage" class="btn btn-success rounded-circle"><i class="fa-solid fa-plus"></i></button></td>
+                <td class="align-middle"><button type="submit" name="addImage" class="btn btn-success btn-sm rounded-circle"><i class="fa-solid fa-plus"></i></button></td>
               </tr>
               <?php echo $stringImage; ?>
             </form>
