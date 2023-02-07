@@ -158,18 +158,15 @@
       $file_size =$_FILES['ImagePath']['size'];
       $file_tmp =$_FILES['ImagePath']['tmp_name'];
       $file_type=$_FILES['ImagePath']['type'];
-      $file_ext=strtolower(end(explode('.', $file_name)));
+      $temp = explode('.',$file_name);
+      $file_ext=strtolower($temp[count($temp)-1]);
       $sql = "INSERT INTO images (ImageName, ImagePath, ImageType) VALUES (:ImageName, :ImagePath, :ImageType)";
       $stmt = $connection->prepare($sql);
       $stmt->execute(['ImageName' => $_POST['ImageName'], 'ImagePath' => "images/" . $file_name, 
       'ImageType' => $_POST['ImageType']]);
 
       $expensions= array("jpeg","jpg","png");
-      echo "<br>filename: " .$file_name;
-      echo "<br>file size: " . $file_size;
-      echo "<br>file_tmp: "  .$file_tmp; 
-      echo "<br>file_type: " .$file_type;
-      echo "<br>file_ext: " .$file_ext;
+      
       if(in_array($file_ext,$expensions)=== false){
          $errors[]="<br><br>extension not allowed, please choose a JPEG or PNG file.";
       }
@@ -180,12 +177,9 @@
 
       if(empty($errors)==true){
          move_uploaded_file($file_tmp,"../images/".$file_name);
-         echo "<br><br>Success";
       }else{
           print_r($errors);
       }
-    }else{
-      echo "<br><br>no file";
     }
 
     // Redirect to prevent resubmission
@@ -236,7 +230,7 @@
     </div>
   </nav>
 
-  <section class="container d-flex flex-column align-items-center justify-center my-5">
+  <section class="container d-flex flex-column align-items-center justify-center my-5" id="welcome">
 
     <nav class="my-2">
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
