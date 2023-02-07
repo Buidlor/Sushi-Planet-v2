@@ -2,6 +2,14 @@
   session_start();
   include '../config.php';
 
+  // Check if the user is logged in
+  if (!isset($_SESSION['user'])) {
+    header("Location: Loginform.php");
+    exit();
+  }
+
+  
+
   // Creates the tablerows for the menu and insert it in a string
   $stringmenu =""; 
   $index = 0;
@@ -20,6 +28,7 @@
   $index++;
   }
 
+  
   // Remove a menu item from the database
   $index = 0;
   if (isset($_POST['removeMenu'])) {
@@ -36,6 +45,8 @@
     // Re-index the $fullMenu array
     $fullMenu = array_values($fullMenu);
     $index = 0;
+
+    $_SESSION['active_tab'] = 'nav-menu';
 
     // Redirect to prevent resubmission
     header("Location: ".$_SERVER['REQUEST_URI']);
@@ -78,6 +89,8 @@
     $contactForm = array_values($contactForm);
     $index = 0;
 
+    $_SESSION['active_tab'] = 'nav-home';
+
     // Redirect to prevent resubmission
     header("Location: ".$_SERVER['REQUEST_URI']);
     exit();
@@ -117,6 +130,8 @@
     $images = array_values($images);
     $index = 0;
 
+    $_SESSION['active_tab'] = 'nav-image';
+
     // Redirect to prevent resubmission
     header("Location: ".$_SERVER['REQUEST_URI']);
     exit();
@@ -129,7 +144,10 @@
     $stmt = $connection->prepare($sql);
     $stmt->execute(['FirstName' => $_POST['FirstName'], 'SurName' => $_POST['SurName'], 
     'Email' => $_POST['Email'], 'Subject' => $_POST['Subject'], 'Message' => $_POST['Message']]);
-       // Redirect to prevent resubmission
+       
+    $_SESSION['active_tab'] = 'nav-home';
+    
+    // Redirect to prevent resubmission      
     header("Location: ".$_SERVER['REQUEST_URI']);
     exit();
   }
@@ -142,6 +160,9 @@
     $stmt->execute(['MenuType' => $_POST['MenuType'], 'Course' => $_POST['Course'], 
     'CourseDescription' => $_POST['CourseDescription'], 'CoursePrice' => $_POST['CoursePrice']]);
        // Redirect to prevent resubmission
+
+       $_SESSION['active_tab'] = 'nav-menu';
+
     header("Location: ".$_SERVER['REQUEST_URI']);
     exit();
   }
@@ -182,6 +203,8 @@
       }
     }
 
+    $_SESSION['active_tab'] = 'nav-image';
+
     // Redirect to prevent resubmission
     header("Location: ".$_SERVER['REQUEST_URI']);
     exit();
@@ -189,11 +212,11 @@
 
 
 
-  // if (isset($_POST['logout'])) {
-  //   session_destroy();
-  //   header("Location: loginform.php");
-  //   exit();
-  // }
+  if (isset($_POST['logout'])) {
+    session_destroy();
+    header("Location: loginform.php");
+    exit();
+  }
 
 ?>
 
@@ -213,16 +236,23 @@
     <!-- navbar -->
   <nav class="navbar navbar-expand-lg bg-black navbar-dark py-3 fixed-top">
     <div class="container">
-   
-      <a href="#welcome" class="navbar-brand">
-        <img src="../images/logosushiplanet2white.png" width="200" alt="logo image" class="d-inline-block align-middle">
-      </a>
-    
+      <ul class="d-flex justify-center align-items-center navbar-nav ms-auto">
+        <li class="nav-item">
+          <a href="#welcome" class="navbar-brand">
+            <img src="../images/logosushiplanet2white.png" width="200" alt="logo image" class="d-inline-block align-middle">
+          </a>
+        </li>
+        <li>
+          <a href="#welcome" class="navbar-brand">
+            <h5 class="d-inline-block align-middle fst-italic text-warning">Backoffice</h5>
+          </a>
+        </li>
+      </ul>
       <div class="collapse navbar-collapse" id="navmenu">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <form method="post">
-              <button type="submit" name="logout" class="rounded nav-link text-dark mx-2">Log Out</button>
+              <button type="submit" name="logout" class="rounded nav-link text-dark mx-2 btn btn-danger text-white fw-bold">Log Out</button>
             </form>
           </li>
         </ul>
@@ -244,8 +274,8 @@
     </nav>
     
     <div class="tab-content" id="nav-tabContent">
-
-      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"
+        <!-- show active -->
+      <div class="tab-pane fade <?php echo (isset($_SESSION['active_tab']) && $_SESSION['active_tab'] == 'nav-home') ? 'show active' : ''; ?>" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"
         tabindex="0">
         <table class = "table table-striped">
           <thead>
@@ -280,7 +310,7 @@
       </div>
  
  
-      <div class="tab-pane fade" id="nav-menu" role="tabpanel" aria-labelledby="nav-menu-tab"
+      <div class="tab-pane fade <?php echo (isset($_SESSION['active_tab']) && $_SESSION['active_tab'] == 'nav-menu') ? 'show active' : ''; ?>" id="nav-menu" role="tabpanel" aria-labelledby="nav-menu-tab"
         tabindex="0">
         <table class = "table table-striped">
           <thead>
@@ -310,7 +340,7 @@
       </div>
 
 
-      <div class="tab-pane fade" id="nav-image" role="tabpanel" aria-labelledby="nav-image-tab"
+      <div class="tab-pane fade <?php echo (isset($_SESSION['active_tab']) && $_SESSION['active_tab'] == 'nav-image') ? 'show active' : ''; ?> " id="nav-image" role="tabpanel" aria-labelledby="nav-image-tab"
         tabindex="0">
         <table class = "table table-striped">
           <thead>

@@ -11,7 +11,7 @@
             $row = $check_user->fetch(PDO::FETCH_ASSOC);
             // echo "<h1>".$row['Pw'] ."</h1>";
             // echo "<h1>" .password_hash($password, PASSWORD_DEFAULT) . "</h1>";
-            if (password_verify($password, $row['Pw'])) {
+            if ($password == $row['Pw']) {
                 $_SESSION['user'] = $row['UserName'];
                 header("Location: backoffice.php");
             }else{
