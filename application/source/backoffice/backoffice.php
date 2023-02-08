@@ -22,7 +22,7 @@
       <td class="align-middle">{$men['Course']}</td>
       <td class="align-middle">{$men['CourseDescription']}</td>
       <td class="align-middle">{$men['CoursePrice']}€</td>
-      <td class="align-middle"><button type="submit" name="removeMenu[{$index}]" class="btn btn-danger btn-sm rounded-circle"><i class="fa-solid fa-minus"></i></button></td>
+      <td class="align-middle"><button type="submit" name="removeMenu[{$index}]" class="shadow btn btn-danger btn-sm rounded-circle"><i class="fa-solid fa-minus"></i></button></td>
     </tr>
   EOD;
   $index++;
@@ -73,7 +73,7 @@
       <td class="align-middle">{$contact['Subject']}</td>
       <td class="align-middle">{$contact['Message']}</td>
       <td class="align-middle">{$contact['Date']}</td>
-      <td class="align-middle"><button type="submit" name="removeContact[{$index}]" class="btn btn-danger btn-sm rounded-circle"><i class="fa-solid fa-minus"></i></button></td>
+      <td class="align-middle"><button type="submit" name="removeContact[{$index}]" class="shadow btn btn-danger btn-sm rounded-circle"><i class="fa-solid fa-minus"></i></button></td>
     </tr>
   EOD;
   $index++;
@@ -119,7 +119,7 @@
       <td class="align-middle">{$image['ImageName']}</td>
       <td class="align-middle"><img src="../{$image['ImagePath']}" class="img-thumbnail w-25"></td>
       <td class="align-middle">{$image['ImageType']}</td>
-      <td class="align-middle"><button type="submit" name="removeImage[{$index}]" class="btn btn-danger btn-sm rounded-circle"><i class="fa-solid fa-minus"></i></button></td>
+      <td class="align-middle"><button type="submit" name="removeImage[{$index}]" class="shadow btn btn-danger btn-sm rounded-circle"><i class="fa-solid fa-minus"></i></button></td>
     </tr>
   EOD;
   $index++;
@@ -253,12 +253,6 @@
     $_SESSION['tabPaneMenu'] ="";
     $_SESSION['tabPaneImage'] ="";
   }
-  // echo "<br>NavlinkHome: " .$_SESSION['navlinkHome'];
-  // echo "<br>NavlinkMenu: " .$_SESSION['navlinkMenu'];
-  // echo "<br>NavlinkImage: " .$_SESSION['navlinkImage'];
-  // echo "<br>TabPaneHome: " .$_SESSION['tabPaneHome'];
-  // echo "<br>TabPaneMenu: " .$_SESSION['tabPaneMenu'];
-  // echo "<br>TabPaneImage: " .$_SESSION['tabPaneImage'];
 
 
 
@@ -302,7 +296,7 @@
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <form method="post">
-              <button type="submit" name="logout" class="rounded nav-link text-dark mx-2 btn btn-danger text-white fw-bold">Log Out</button>
+              <button type="submit" name="logout" class="rounded nav-link text-dark mx-2 shadow btn btn-danger text-white fw-bold">Log Out</button>
             </form>
           </li>
         </ul>
@@ -323,7 +317,7 @@
       </div>
     </nav>
     
-    <div class="tab-content shadow border-start border-end border-bottom rounded-4" id="nav-tabContent">
+    <div class="tab-content shadow border-start border-end border-bottom rounded-bottom" id="nav-tabContent">
         
       <div class="tab-pane fade <?PHP echo $_SESSION['tabPaneHome']; ?> " id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
         <table class = "table table-striped">
@@ -407,7 +401,7 @@
                 <td class="align-middle"><input name="ImageName" class="form-control" type="text"></td>
                 <td class="align-middle"><input name="ImagePath" class="form-control w-75" type="file"></td>
                 <td class="align-middle"><input name="ImageType" class="form-control" type="text"></td>
-                <td class="align-middle"><button type="submit" name="addImage" class="btn btn-success btn-sm rounded-circle"><i class="fa-solid fa-plus"></i></button></td>
+                <td class="align-middle"><button type="submit" name="addImage" class="shadow btn btn-success btn-sm rounded-circle"><i class="fa-solid fa-plus"></i></button></td>
               </tr>
               <?php echo $stringImage; ?>
             </form>
