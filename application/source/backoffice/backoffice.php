@@ -46,7 +46,13 @@
     $fullMenu = array_values($fullMenu);
     $index = 0;
 
-    $_SESSION['active_tab'] = 'nav-menu';
+    $_SESSION['navlinkHome'] = "";
+    $_SESSION['navlinkMenu'] = "active";
+    $_SESSION['navlinkImage'] = "";
+    $_SESSION['tabPaneHome'] ="";
+    $_SESSION['tabPaneMenu'] ="show active";
+    $_SESSION['tabPaneImage'] ="";
+    
 
     // Redirect to prevent resubmission
     header("Location: ".$_SERVER['REQUEST_URI']);
@@ -89,7 +95,13 @@
     $contactForm = array_values($contactForm);
     $index = 0;
 
-    $_SESSION['active_tab'] = 'nav-home';
+    $_SESSION['navlinkHome'] = "active";
+    $_SESSION['navlinkMenu'] = "";
+    $_SESSION['navlinkImage'] = "";
+    $_SESSION['tabPaneHome'] ="show active";
+    $_SESSION['tabPaneMenu'] ="";
+    $_SESSION['tabPaneImage'] ="";
+   
 
     // Redirect to prevent resubmission
     header("Location: ".$_SERVER['REQUEST_URI']);
@@ -130,7 +142,12 @@
     $images = array_values($images);
     $index = 0;
 
-    $_SESSION['active_tab'] = 'nav-image';
+    $_SESSION['navlinkHome'] = "";
+    $_SESSION['navlinkMenu'] = "";
+    $_SESSION['navlinkImage'] = "active";
+    $_SESSION['tabPaneHome'] ="";
+    $_SESSION['tabPaneMenu'] ="";
+    $_SESSION['tabPaneImage'] ="show active";
 
     // Redirect to prevent resubmission
     header("Location: ".$_SERVER['REQUEST_URI']);
@@ -144,8 +161,14 @@
     $stmt = $connection->prepare($sql);
     $stmt->execute(['FirstName' => $_POST['FirstName'], 'SurName' => $_POST['SurName'], 
     'Email' => $_POST['Email'], 'Subject' => $_POST['Subject'], 'Message' => $_POST['Message']]);
-       
-    $_SESSION['active_tab'] = 'nav-home';
+     
+    $_SESSION['navlinkHome'] = "active";
+    $_SESSION['navlinkMenu'] = "";
+    $_SESSION['navlinkImage'] = "";
+    $_SESSION['tabPaneHome'] ="show active";
+    $_SESSION['tabPaneMenu'] ="";
+    $_SESSION['tabPaneImage'] ="";
+   
     
     // Redirect to prevent resubmission      
     header("Location: ".$_SERVER['REQUEST_URI']);
@@ -159,10 +182,16 @@
     $stmt = $connection->prepare($sql);
     $stmt->execute(['MenuType' => $_POST['MenuType'], 'Course' => $_POST['Course'], 
     'CourseDescription' => $_POST['CourseDescription'], 'CoursePrice' => $_POST['CoursePrice']]);
-       // Redirect to prevent resubmission
 
-       $_SESSION['active_tab'] = 'nav-menu';
+    $_SESSION['navlinkHome'] = "";
+    $_SESSION['navlinkMenu'] = "active";
+    $_SESSION['navlinkImage'] = "";
+    $_SESSION['tabPaneHome'] ="";
+    $_SESSION['tabPaneMenu'] ="show active";
+    $_SESSION['tabPaneImage'] ="";
+    
 
+    // Redirect to prevent resubmission   
     header("Location: ".$_SERVER['REQUEST_URI']);
     exit();
   }
@@ -203,12 +232,33 @@
       }
     }
 
-    $_SESSION['active_tab'] = 'nav-image';
+    $_SESSION['navlinkHome'] = "";
+    $_SESSION['navlinkMenu'] = "";
+    $_SESSION['navlinkImage'] = "active";
+    $_SESSION['tabPaneHome'] ="";
+    $_SESSION['tabPaneMenu'] ="";
+    $_SESSION['tabPaneImage'] ="show active";
 
     // Redirect to prevent resubmission
     header("Location: ".$_SERVER['REQUEST_URI']);
     exit();
   }
+
+  if(!isset($_SESSION['navlinkHome']) && !isset($_SESSION['navlinkMenu']) && !isset($_SESSION['navlinkImage']) && 
+  !isset($_SESSION['tabPaneHome']) && !isset($_SESSION['tabPaneMenu']) && !isset($_SESSION['tabPaneImage'])){
+    $_SESSION['navlinkHome'] = "active";
+    $_SESSION['navlinkMenu'] = "";
+    $_SESSION['navlinkImage'] = "";
+    $_SESSION['tabPaneHome'] ="show active";
+    $_SESSION['tabPaneMenu'] ="";
+    $_SESSION['tabPaneImage'] ="";
+  }
+  // echo "<br>NavlinkHome: " .$_SESSION['navlinkHome'];
+  // echo "<br>NavlinkMenu: " .$_SESSION['navlinkMenu'];
+  // echo "<br>NavlinkImage: " .$_SESSION['navlinkImage'];
+  // echo "<br>TabPaneHome: " .$_SESSION['tabPaneHome'];
+  // echo "<br>TabPaneMenu: " .$_SESSION['tabPaneMenu'];
+  // echo "<br>TabPaneImage: " .$_SESSION['tabPaneImage'];
 
 
 
@@ -264,19 +314,18 @@
 
     <nav class="mt-2  rounded-2 w-100">
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <button class="nav-link active " id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+        <button class="nav-link <?PHP echo $_SESSION['navlinkHome']; ?>" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
         type="button" role="tab" aria-controls="nav-home" aria-selected="true"><h4>Contact Form</h4></button>
-        <button class="nav-link" id="nav-menu-tab" data-bs-toggle="tab" data-bs-target="#nav-menu"
+        <button class="nav-link <?PHP echo $_SESSION['navlinkMenu']; ?>" id="nav-menu-tab" data-bs-toggle="tab" data-bs-target="#nav-menu"
         type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><h4>Menus</h4></button>
-        <button class="nav-link" id="nav-image-tab" data-bs-toggle="tab" data-bs-target="#nav-image"
+        <button class="nav-link <?PHP echo $_SESSION['navlinkImage']; ?>" id="nav-image-tab" data-bs-toggle="tab" data-bs-target="#nav-image"
         type="button" role="tab" aria-controls="nav-image" aria-selected="false"><h4>Images</h4></button>
       </div>
     </nav>
     
     <div class="tab-content shadow border-start border-end border-bottom rounded-4" id="nav-tabContent">
         
-      <div class="tab-pane fade <?php echo (isset($_SESSION['active_tab']) && $_SESSION['active_tab'] == 'nav-home') ? 'show active' : ''; ?>" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"
-        tabindex="0">
+      <div class="tab-pane fade <?PHP echo $_SESSION['tabPaneHome']; ?> " id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
         <table class = "table table-striped">
           <thead>
             <tr >
@@ -310,7 +359,7 @@
       </div>
  
  
-      <div class="tab-pane fade <?php echo (isset($_SESSION['active_tab']) && $_SESSION['active_tab'] == 'nav-menu') ? 'show active' : ''; ?>" id="nav-menu" role="tabpanel" aria-labelledby="nav-menu-tab"
+      <div class="tab-pane fade <?PHP echo $_SESSION['tabPaneMenu']; ?>" id="nav-menu" role="tabpanel" aria-labelledby="nav-menu-tab"
         tabindex="0">
         <table class = "table table-striped">
           <thead>
@@ -340,8 +389,7 @@
       </div>
 
 
-      <div class="tab-pane fade <?php echo (isset($_SESSION['active_tab']) && $_SESSION['active_tab'] == 'nav-image') ? 'show active' : ''; ?> " id="nav-image" role="tabpanel" aria-labelledby="nav-image-tab"
-        tabindex="0">
+      <div class="tab-pane fade <?PHP echo $_SESSION['tabPaneImage']; ?>"  id="nav-image" role="tabpanel" aria-labelledby="nav-image-tab" tabindex="0">
         <table class = "table table-striped">
           <thead>
             <tr >
