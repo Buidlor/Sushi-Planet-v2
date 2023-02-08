@@ -9,8 +9,7 @@
         $check_user->execute();
         if ($check_user->rowCount() > 0) {
             $row = $check_user->fetch(PDO::FETCH_ASSOC);
-            // echo "<h1>".$row['Pw'] ."</h1>";
-            // echo "<h1>" .password_hash($password, PASSWORD_DEFAULT) . "</h1>";
+ 
             if ($password == $row['Pw']) {
                 $_SESSION['user'] = $row['UserName'];
                 header("Location: backoffice.php");
@@ -35,30 +34,48 @@
 	
     <title>Login</title>
 </head>
-<body class="">
-    <!-- navbar  -->
-    <nav class="navbar navbar-expand-lg bg-black navbar-dark py-3 fixed-top">
+<body class="bg-light">
+<!-- navbar  -->
+<nav class="navbar navbar-expand-lg bg-black navbar-dark py-3 fixed-top shadow-lg">
     <div class="container">
-      <a href="#" class="navbar-brand">
-        <img src="../images/logosushiplanet2white.png" width="200" alt="logo image" class="d-inline-block align-middle">
-      </a>
+      <ul class="d-flex justify-center align-items-center navbar-nav ms-auto">
+        <li class="nav-item">
+          <a href="#welcome" class="navbar-brand">
+            <img src="../images/logosushiplanet2white.png" width="200" alt="logo image" class="d-inline-block align-middle">
+          </a>
+        </li>
+        <li>
+          <a href="#welcome" class="navbar-brand">
+            <h5 class="d-inline-block align-middle fst-italic text-warning">Backoffice</h5>
+          </a>
+        </li>
+      </ul>
+      <div class="collapse navbar-collapse" id="navmenu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <form method="post">
+              <button type="submit" name="logout" class="rounded nav-link text-dark mx-2 btn btn-danger text-white fw-bold">Log Out</button>
+            </form>
+          </li>
+        </ul>
+      </div>
     </div>
   </nav>
 
     <!-- main content  -->
     <section class="py-5 my-5 d-flex flex-column align-items-center justify-center">
         <p class="h2" >Sign In</p>
-        <form  class="" method="post" action="" name="login-from">
-            <div>
-                <label for="user">username</label><br>
-                <input class="" type="text" name="username" id="username" placeholder="Enter your Username" required>
+        <form  method="post" action="" name="login-from">
+            <div class="mb-3">
+                <label class="form-label"for="user">Username</label><br>
+                <input class="form-control shadow" type="text" name="username" id="username" placeholder="Enter your Username" required>
             </div>
-            <div>
-                <label for="password">Password</label><br>
-                <input class="" type="password" name="password" id="password" placeholder="Enter your password" required>
+            <div class="mb-3">
+                <label class="form-label " for="password">Password</label><br>
+                <input class="form-control shadow" type="password" name="password" id="password" placeholder="Enter your password" required>
             </div>
-            <div>
-                <input class ="" type="submit" name="login" value="Login">
+            <div class="mt-4">
+                <input class="btn btn-dark shadow" type="submit" name="login" value="Login">
             </div>
         </form>
     </section>
