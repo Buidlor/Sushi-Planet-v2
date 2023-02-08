@@ -10,7 +10,7 @@
         if ($check_user->rowCount() > 0) {
             $row = $check_user->fetch(PDO::FETCH_ASSOC);
  
-            if ($password == $row['Pw']) {
+            if (password_verify($password, $row['Pw'])) {
                 $_SESSION['user'] = $row['UserName'];
                 header("Location: backoffice.php");
             }else{

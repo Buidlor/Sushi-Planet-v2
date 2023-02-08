@@ -7,9 +7,14 @@
     header("Location: Loginform.php");
     exit();
   }
+  $hash = password_hash($ADMIN_PASSWORD, PASSWORD_DEFAULT);
+  $sql = "UPDATE users SET Pw = :hash WHERE UserName = 'admin'";
+  $stmt = $connection->prepare($sql);
+  $stmt->bindParam(':hash', $hash);
+  $stmt->execute();
+
 
   
-
   // Creates the tablerows for the menu and insert it in a string
   $stringmenu =""; 
   $index = 0;
