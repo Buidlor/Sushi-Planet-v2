@@ -1,8 +1,9 @@
 <?php
-    define('DB_HOST', 'database');
-    define('USER', 'root');
-    define('PASSWORD', 'root');
-    define('DATABASE', 'mydb');
+    include('secret.php');
+    define('DB_HOST', MYSQL_HOST);
+    define('USER', MYSQL_ROOT_USER);
+    define('PASSWORD', MYSQL_ROOT_PASSWORD);
+    define('DATABASE',MYSQL_DATABASE);
     try{
         $connection = new PDO('mysql:host='.DB_HOST.';dbname='.DATABASE, USER, PASSWORD);
 
